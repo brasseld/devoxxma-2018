@@ -1,7 +1,8 @@
-# breizhcamp-2018-tia
+# Devfest Lille 2018
+## L'open-source à la rescousse de mes APIs
 
 ## Step 1
-> git clone https://github.com/gravitee-io/breizhcamp-2018-tia.git
+> git clone https://github.com/gravitee-io/devfestlille-2018.git
 
 ## Step 2
 > docker-compose pull
@@ -11,7 +12,7 @@
 > docker-compose up
 
 ## Step 3: Declare your API
-### Go to the Gravitee.io Portal: http://localhost:18080/
+### Go to the Gravitee.io Portal: http://gio-portal.docker.localhost/
 ![Alt text](assets/screenshot1.png?raw=true "Portal")
 
 ### Login as admin:admin
