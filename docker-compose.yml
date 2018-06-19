@@ -1,0 +1,135 @@
+version: '3'
+
+networks:
+  default:
+
+services:
+  mongodb:
+    image: mongo:3.4
+    container_name: tia_mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_DATABASE=gravitee
+    volumes:
+      - ./mongo/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./data/mongo:/data/db
+      - ./logs/mongodb:/var/log/mongodb
+
+  elasticsearch:
+    image: elasticsearch:5.6.3
+    container_name: tia_elasticsearch
+    ports:
+      - 9200:9200
+    environment:
+      - http.host=0.0.0.0
+      - transport.host=0.0.0.0
+      - xpack.security.enabled=false
+      - xpack.monitoring.enabled=false
+      - cluster.name=elasticsearch
+    ulimits:
+      nofile: 65536
+    volumes:
+      - ./data/elasticsearch:/usr/share/elasticsearch/data
+      - ./logs/elasticsearch:/var/log/elasticsearch
+
+  beerapi:
+    build: ./beer-app
+    container_name: tia_beerapi
+    labels:
+      - "traefik.frontend.rule=Host:beer-api.docker.localhost"
+#    ports:
+#      - 16070:8080
+    depends_on:
+      - mongodb
+
+  beerui:
+    image: nginx:1.13.10-alpine
+    container_name: tia_beerui
+    labels:
+      - "traefik.frontend.rule=Host:beer-ui.docker.localhost"
+    volumes:
+      - ./beer-ui:/usr/share/nginx/html
+#    ports:
+#      - 16080:80
+    restart: unless-stopped
+
+  keycloak:
+    image: jboss/keycloak
+    container_name: tia_keycloak
+    labels:
+      - "traefik.frontend.rule=Host:keycloak.docker.localhost"
+#    ports:
+#      - 8080:8080
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - PROXY_ADDRESS_FORWARDING=true
+
+  gateway:
+    image: graviteeio/gateway:latest
+    labels:
+      - "traefik.frontend.rule=Host:gio-gw.docker.localhost"
+    container_name: tia_gateway
+#    ports:
+#      - 18082:8082
+    volumes:
+      - ./plugins:/opt/graviteeio-gateway/plugins-ext
+    environment:
+      - gravitee_management_mongodb_uri=mongodb://mongodb:27017/gravitee?serverSelectionTimeoutMS=5000&connectTimeoutMS=5000&socketTimeoutMS=5000
+      - gravitee_ratelimit_mongodb_uri=mongodb://mongodb:27017/gravitee?serverSelectionTimeoutMS=5000&connectTimeoutMS=5000&socketTimeoutMS=5000
+      - gravitee_reporters_elasticsearch_endpoints_0=http://elasticsearch:9200
+      - gravitee_plugins_path_0=$${gravitee.home}/plugins
+      - gravitee_plugins_path_1=$${gravitee.home}/plugins-ext
+    depends_on:
+      - mongodb
+      - elasticsearch
+      - keycloak
+      - beerapi
+#    links:
+#      - beerapi:beer-api.docker.localhost
+
+  managementui:
+    image: graviteeio/management-ui:latest
+    container_name: tia_mgmt_ui
+    labels:
+      - "traefik.frontend.rule=Host:gio-portal.docker.localhost"
+#    ports:
+#      - 18080:80
+    environment:
+      - MGMT_API_URL=http:\/\/gio-api.docker.localhost\/management\/
+    depends_on:
+      - managementapi
+
+  managementapi:
+    image: graviteeio/management-api:latest
+    container_name: tia_mgmt_api
+    labels:
+      - "traefik.frontend.rule=Host:gio-api.docker.localhost"
+#    ports:
+#      - 18083:8083
+    volumes:
+      - ./plugins:/opt/graviteeio-management-api/plugins-ext
+    environment:
+    environment:
+      - gravitee_management_mongodb_uri=mongodb://mongodb:27017/gravitee?serverSelectionTimeoutMS=5000&connectTimeoutMS=5000&socketTimeoutMS=5000
+      - gravitee_ratelimit_mongodb_uri=mongodb://mongodb:27017/gravitee?serverSelectionTimeoutMS=5000&connectTimeoutMS=5000&socketTimeoutMS=5000
+      - gravitee_analytics_elasticsearch_endpoints_0=http://elasticsearch:9200
+      - gravitee_plugins_path_0=$${gravitee.home}/plugins
+      - gravitee_plugins_path_1=$${gravitee.home}/plugins-ext
+    depends_on:
+      - mongodb
+      - elasticsearch
+
+  reverse-proxy:
+    image: traefik
+    command: --api --docker
+    networks:
+      default:
+        aliases:
+          - keycloak.docker.localhost
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
