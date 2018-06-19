@@ -38,8 +38,6 @@ services:
     container_name: tia_beerapi
     labels:
       - "traefik.frontend.rule=Host:beer-api.docker.localhost"
-#    ports:
-#      - 16070:8080
     depends_on:
       - mongodb
 
@@ -50,8 +48,6 @@ services:
       - "traefik.frontend.rule=Host:beer-ui.docker.localhost"
     volumes:
       - ./beer-ui:/usr/share/nginx/html
-#    ports:
-#      - 16080:80
     restart: unless-stopped
 
   keycloak:
@@ -59,8 +55,6 @@ services:
     container_name: tia_keycloak
     labels:
       - "traefik.frontend.rule=Host:keycloak.docker.localhost"
-#    ports:
-#      - 8080:8080
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin
@@ -71,8 +65,6 @@ services:
     labels:
       - "traefik.frontend.rule=Host:gio-gw.docker.localhost"
     container_name: tia_gateway
-#    ports:
-#      - 18082:8082
     volumes:
       - ./plugins:/opt/graviteeio-gateway/plugins-ext
     environment:
@@ -86,16 +78,12 @@ services:
       - elasticsearch
       - keycloak
       - beerapi
-#    links:
-#      - beerapi:beer-api.docker.localhost
 
   managementui:
     image: graviteeio/management-ui:latest
     container_name: tia_mgmt_ui
     labels:
       - "traefik.frontend.rule=Host:gio-portal.docker.localhost"
-#    ports:
-#      - 18080:80
     environment:
       - MGMT_API_URL=http:\/\/gio-api.docker.localhost\/management\/
     depends_on:
@@ -106,8 +94,6 @@ services:
     container_name: tia_mgmt_api
     labels:
       - "traefik.frontend.rule=Host:gio-api.docker.localhost"
-#    ports:
-#      - 18083:8083
     volumes:
       - ./plugins:/opt/graviteeio-management-api/plugins-ext
     environment:
