@@ -115,7 +115,7 @@ public class BeerService extends AbstractVerticle {
                         } else {
                             routingContext.response().putHeader("content-type", "application/json; charset=utf-8")
                                     .end(Json.encodePrettily(
-                                            new Beer(id, json.getString("name"), json.getString("origin"))));
+                                            new Beer(id, json.getString("name"), json.getString("color"), json.getString('style'))));
                         }
                     });
         }
