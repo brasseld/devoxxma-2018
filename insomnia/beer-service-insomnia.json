@@ -1,0 +1,249 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2018-06-20T15:06:51.824Z",
+	"__export_source": "insomnia.desktop.app:v5.16.6",
+	"resources": [
+		{
+			"_id": "wrk_d43a436d88134c6c8f8ebd1541a0ab0a",
+			"created": 1526329881392,
+			"description": "",
+			"modified": 1528734655413,
+			"name": "Beer Service",
+			"parentId": null,
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_dd5d3ffa9a10498b9ae3df151312e126",
+			"color": null,
+			"created": 1526329881430,
+			"data": {},
+			"isPrivate": false,
+			"modified": 1526329881430,
+			"name": "New Environment",
+			"parentId": "wrk_d43a436d88134c6c8f8ebd1541a0ab0a",
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_51af1d5e9f6b45af918a14d5ff9fbc88",
+			"cookies": [],
+			"created": 1526329881504,
+			"modified": 1526329881504,
+			"name": "Default Jar",
+			"parentId": "wrk_d43a436d88134c6c8f8ebd1541a0ab0a",
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "fld_ca9c5593ef8542faba0084ad4ba711f0",
+			"created": 1528469935207,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1528472552632,
+			"modified": 1528472556717,
+			"name": "Beer Service",
+			"parentId": "wrk_d43a436d88134c6c8f8ebd1541a0ab0a",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_41dac028e0aa43f7868ccc3fdb1104ac",
+			"created": 1528472552582,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1528472552582,
+			"modified": 1528472552582,
+			"name": "Beer Service with GW",
+			"parentId": "wrk_d43a436d88134c6c8f8ebd1541a0ab0a",
+			"_type": "request_group"
+		},
+		{
+			"_id": "req_8b08f2cc84e04c97a4e4fd171c222151",
+			"authentication": {
+				"disabled": true,
+				"grantType": "client_credentials",
+				"type": "oauth2"
+			},
+			"body": {},
+			"created": 1526329901287,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1526329901287,
+			"method": "GET",
+			"modified": 1529507062367,
+			"name": "List all beers",
+			"parameters": [],
+			"parentId": "fld_ca9c5593ef8542faba0084ad4ba711f0",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://beer-api.docker.localhost/api/beers/",
+			"_type": "request"
+		},
+		{
+			"_id": "req_a66eb1c31c334d20976413845625a553",
+			"authentication": {
+				"disabled": true,
+				"grantType": "client_credentials",
+				"type": "oauth2"
+			},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\t\"name\": \"Charles Quint Keizer\",\n\t\t\"style\": \"Belgian Pale Ale\",\n\t\t\"color\": \"Blond\"\n}"
+			},
+			"created": 1528734952078,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_9a9420ac13784c46abdd00b2e1416649",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1526329901237,
+			"method": "POST",
+			"modified": 1529507072674,
+			"name": "Create beer",
+			"parameters": [],
+			"parentId": "fld_ca9c5593ef8542faba0084ad4ba711f0",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://beer-api.docker.localhost/api/beers/",
+			"_type": "request"
+		},
+		{
+			"_id": "req_47de4646a3dd41229d4c344d2a0e8825",
+			"authentication": {
+				"disabled": true,
+				"grantType": "client_credentials",
+				"type": "oauth2"
+			},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\t\"color\": \"Blond\"\n}"
+			},
+			"created": 1528735206189,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_9a9420ac13784c46abdd00b2e1416649",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1526329901187,
+			"method": "PUT",
+			"modified": 1529507077214,
+			"name": "Update beer",
+			"parameters": [],
+			"parentId": "fld_ca9c5593ef8542faba0084ad4ba711f0",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://beer-api.docker.localhost/api/beers/5b1ea89385b4b90001a52129",
+			"_type": "request"
+		},
+		{
+			"_id": "req_643abb6bd747480a952783c16ebbfe1b",
+			"authentication": {
+				"disabled": true,
+				"grantType": "client_credentials",
+				"type": "oauth2"
+			},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\t\"color\": \"Blond\"\n}"
+			},
+			"created": 1528736136870,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_9a9420ac13784c46abdd00b2e1416649",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1526329901137,
+			"method": "DELETE",
+			"modified": 1529507082370,
+			"name": "Delete beer",
+			"parameters": [],
+			"parentId": "fld_ca9c5593ef8542faba0084ad4ba711f0",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://beer-api.docker.localhost/api/beers/5b1ea89385b4b90001a52129",
+			"_type": "request"
+		},
+		{
+			"_id": "req_d7415ef2fc96459496bfc5066bd259fc",
+			"authentication": {
+				"disabled": true,
+				"grantType": "client_credentials",
+				"type": "oauth2"
+			},
+			"body": {},
+			"created": 1528734937768,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1527401226959.5,
+			"method": "POST",
+			"modified": 1529507116941,
+			"name": "Create beer",
+			"parameters": [],
+			"parentId": "fld_41dac028e0aa43f7868ccc3fdb1104ac",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://gio-gw.docker.localhost/api/beers/",
+			"_type": "request"
+		},
+		{
+			"_id": "req_1a1b1cdc9a144270a98752d438d95564",
+			"authentication": {
+				"disabled": true,
+				"grantType": "implicit",
+				"type": "oauth2"
+			},
+			"body": {},
+			"created": 1528736225490,
+			"description": "",
+			"headers": [
+				{
+					"disabled": true,
+					"id": "pair_a01eb410bb174fe2b3795a020055cf28",
+					"name": "X-gravitee-api-key",
+					"value": "02f5436a-fa70-41a8-ba02-080cc8fde223"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1527401227009.5,
+			"method": "GET",
+			"modified": 1529507147706,
+			"name": "List all beers",
+			"parameters": [],
+			"parentId": "fld_41dac028e0aa43f7868ccc3fdb1104ac",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://gio-gw.docker.localhost/api/beers/",
+			"_type": "request"
+		}
+	]
+}
