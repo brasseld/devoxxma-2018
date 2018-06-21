@@ -45,13 +45,14 @@
 </div>
 <script src="http://keycloak.docker.localhost/auth/js/keycloak.js"></script>
 <script>
-    // URL Beer UI : http://localhost:16080/
-    // URL Portal API : http://localhost:18080/
-    // URL Keycloak : http://localhost:17080/
+    // URL Beer UI : http://beer-ui.docker.localhost/
+    // URL Portal API : http://gio-portal.docker.localhost/
+    // URL Keycloak : http://keycloak.docker.localhost/
     
     var user = {"username": "anonymous"};
     var keycloak = { "token": ""};
 
+/*
     var keycloak = Keycloak({
             url: 'http://keycloak.docker.localhost/auth',
             realm: 'brasserie',
@@ -62,7 +63,7 @@
             if (authenticated) {
                 keycloak.loadUserProfile().success(function(profile) {
                     user = profile;
-			console.log(keycloak.hasRealmRole('Aadmin'));
+			console.log(keycloak.hasRealmRole('admin'));
 		    alert('Congratulations "' + user.firstName + '" you are connected!!!');
                     load();
                 }).error(function() {
@@ -73,10 +74,10 @@
         }).error(function() {
             alert('failed to initialize');
         });
-
+*/
     //var url = "http://beer-api.docker.localhost/api/beers";
     var url = "http://gio-gw.docker.localhost/api/beers";
-    //load();
+    load();
 
     $(function () {
         //load();
@@ -181,7 +182,7 @@
                 modal.find('#product-style').val("");
                 modal.find('#product-color').val("");
                 productAction.click(function () {
-                    create($("#product-name").val(), $("#product-style").val(), ), $("#product-color").val();
+                    create($("#product-name").val(), $("#product-style").val(), $("#product-color").val());
                     $('#productModal').modal('toggle');
                 });
             } else {
