@@ -1,8 +1,8 @@
-# Devfest Lille 2018
+# JUGSummerCamp 2018 - L'open-source à la rescousse de mes APIs !
 ## L'open-source à la rescousse de mes APIs
 
 ## Step 1
-> git clone https://github.com/gravitee-io/devfestlille-2018.git
+> git clone https://github.com/brasseld/jugsummercamp-2018.git
 
 ## Step 2
 > docker-compose pull

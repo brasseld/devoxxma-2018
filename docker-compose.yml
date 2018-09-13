@@ -53,6 +53,8 @@ services:
   keycloak:
     image: jboss/keycloak
     container_name: tia_keycloak
+    ports:
+      - 9080:8080
     labels:
       - "traefik.frontend.rule=Host:keycloak.docker.localhost"
     environment:
@@ -103,6 +105,18 @@ services:
       - gravitee_user_login_defaultApplication=false
       - gravitee_plugins_path_0=$${gravitee.home}/plugins
       - gravitee_plugins_path_1=$${gravitee.home}/plugins-ext
+      - gravitee_security_providers_2_type=oauth2
+      - gravitee_security_providers_2_clientId=gravitee
+      - gravitee_security_providers_2_clientSecret=7d4a7013-9a11-4374-943d-c398dde7130e
+      - gravitee_security_providers_2_tokenEndpoint=http://keycloak:8080/auth/realms/master/protocol/openid-connect/token
+      - gravitee_security_providers_2_tokenIntrospectionEndpoint=http://keycloak:8080/auth/realms/master/protocol/openid-connect/introspect
+      - gravitee_security_providers_2_userInfoEndpoint=http://keycloak:8080/auth/realms/master/protocol/openid-connect/userinfo
+      - gravitee_security_providers_2_accessTokenProperty=access_token
+      - gravitee_security_providers_2_authorizationHeader=Bearer %s
+      - gravitee_security_providers_2_mapping_id=sub
+      - gravitee_security_providers_2_mapping_email=email
+      - gravitee_security_providers_2_mapping_lastname=family_name
+      - gravitee_security_providers_2_mapping_firstname=given_name
     depends_on:
       - mongodb
       - elasticsearch
